@@ -28,13 +28,3 @@ params:
       url: "mailto:williambajzek+guitar@gmail.com"
       icon: "fa fa-envelope"
 
-menu:
-  main:
-    - identifier: irish-flute
-      name: Irish Flute
-      url: /irish-flute
-      weight: 10
-    - identifier: glissant
-      name: Electronic Music
-      url: /glissant
-      weight: 11
