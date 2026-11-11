@@ -1,6 +1,6 @@
 ---
-title: "About"
-weight: 1
+title: "About Me"
+weight: 4
 header_menu: true
 ---
 

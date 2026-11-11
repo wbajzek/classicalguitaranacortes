@@ -1,6 +1,6 @@
 ---
-title: "Contact"
-weight: 4
+title: "Contact Me"
+weight: 5
 header_menu: true
 ---
 

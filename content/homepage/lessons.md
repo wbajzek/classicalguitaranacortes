@@ -4,7 +4,7 @@ weight: 2
 header_menu: true
 ---
 
-I offer private classical guitar lessons for students of all levels, from absolute beginners to advanced players working on technique and repertoire.
+I offer private classical guitar lessons for adult students of all levels, from absolute beginners to advancing players working on technique and repertoire.
 
 - Fundamentals of classical guitar technique
 - Musicality
