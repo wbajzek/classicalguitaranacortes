@@ -1,0 +1,28 @@
+{{- /* Swaps a .yt-lazy facade for the real player on first click. Runs last in <body>
+       (see themes/hugo-scroll/layouts/_default/baseof.html). Vanilla JS — the facade
+       must not depend on jQuery having loaded. */ -}}
+<script>
+  (function () {
+    document.addEventListener('click', function (event) {
+      var button = event.target.closest ? event.target.closest('.yt-lazy-play') : null;
+      if (!button) return;
+
+      var wrapper = button.parentNode;
+      var id = wrapper.getAttribute('data-yt-id');
+      if (!id) return;
+
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
+        '?autoplay=1&rel=0&playsinline=1';
+      iframe.title = (button.getAttribute('aria-label') || 'YouTube video player')
+        .replace(/^Play video:\s*/, '');
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('tabindex', '-1');
+
+      wrapper.replaceChild(iframe, button);
+      iframe.focus();
+    });
+  })();
+</script>

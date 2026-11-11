@@ -1,0 +1,30 @@
+{{- /* Privacy-friendly click-to-play YouTube facade.
+       No iframe, script, or cookie from YouTube is loaded until the visitor presses play.
+       Params: id (required, 11-char video id), title (optional, used for the a11y label).
+       The poster is served from our own domain when assets/images/videos/<id>.jpg exists. */ -}}
+{{- $id := .id -}}
+{{- $title := .title | default "" -}}
+{{- if not $id -}}
+  {{- errorf "yt-lazy: called without an 'id' parameter" -}}
+{{- end -}}
+{{- $label := cond (ne $title "") (printf "Play video: %s" $title) "Play video" -}}
+{{- $poster := "" -}}
+{{- $w := 0 -}}
+{{- $h := 0 -}}
+{{- with resources.Get (printf "images/videos/%s.jpg" $id) -}}
+  {{- $img := .Resize "640x webp q82" -}}
+  {{- $poster = $img.RelPermalink -}}
+  {{- $w = $img.Width -}}
+  {{- $h = $img.Height -}}
+{{- else -}}
+  {{- warnf "yt-lazy: no local thumbnail at assets/images/videos/%s.jpg — hot-linking i.ytimg.com instead" $id -}}
+  {{- $poster = printf "https://i.ytimg.com/vi/%s/hqdefault.jpg" $id -}}
+  {{- $w = 480 -}}
+  {{- $h = 360 -}}
+{{- end -}}
+<div class="yt-lazy" data-yt-id="{{ $id }}">
+  <button type="button" class="yt-lazy-play" aria-label="{{ $label }}">
+    <img src="{{ $poster }}" width="{{ $w }}" height="{{ $h }}" alt="" loading="lazy" decoding="async">
+    <span class="yt-lazy-icon" aria-hidden="true"></span>
+  </button>
+</div>

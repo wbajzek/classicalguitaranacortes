@@ -1,0 +1,165 @@
+{{- /* Site-level component CSS. The theme's _index.scss imports a fixed list of partials,
+       so adding a file there would mean copying a whole theme file; the theme README
+       recommends this <style> hook instead. Colors derive from currentColor and the theme's
+       custom properties so cards read correctly on both light and dark sections.
+       NOTE: the theme sets html { font-size: 62.5% } (content.scss), so 1rem = 10px here.
+       Sizes below are in px to stay independent of that scale. */ -}}
+<style>
+  /* === Composition cards (Sheet Music section) === */
+  .piece {
+    display: grid;
+    grid-template-columns: minmax(0, 288px) 1fr;
+    gap: 24px;
+    align-items: start;
+    padding: 24px 0;
+    border-top: 1px solid rgba(128, 128, 128, 0.35);
+    border-top-color: color-mix(in srgb, currentColor 22%, transparent);
+  }
+
+  .piece--no-video {
+    grid-template-columns: 1fr;
+  }
+
+  /* Section sub-headings already draw their own rule — don't stack a second one. */
+  h3 + .piece,
+  h4 + .piece,
+  h5 + .piece {
+    border-top: 0;
+    padding-top: 8px;
+  }
+
+  .piece-credit {
+    margin: 6px 0 0;
+    font-size: 0.8em;
+    opacity: 0.8;
+  }
+
+  .piece-title {
+    margin: 0 0 6px;
+    line-height: 1.3;
+  }
+
+  .piece-year {
+    font-weight: normal;
+    opacity: 0.75;
+  }
+
+  .piece-desc > :first-child { margin-top: 0; }
+  .piece-desc > :last-child { margin-bottom: 0; }
+
+  /* The theme renders list bullets via the --ul-li-icon Font Awesome glyph; cards replace
+     the old <ul>, so make sure no stray glyph leaks into card copy. */
+  .piece-desc ul,
+  .piece-actions {
+    list-style: none;
+  }
+
+  .piece-actions {
+    margin: 14px 0 0;
+  }
+
+  .piece-pdf {
+    display: inline-block;
+    padding: 0.4em 0.9em;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .piece-pdf:hover,
+  .piece-pdf:focus-visible {
+    background-color: var(--highlight);
+    border-color: var(--highlight);
+    color: white;
+    text-decoration: none;
+  }
+
+  /* === Click-to-play YouTube facade === */
+  .yt-lazy {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.35);
+  }
+
+  /* Descendant, not child: the poster sits inside .yt-lazy-play, and the theme's
+     `.post-content img { max-width: 100% }` would otherwise squeeze it horizontally
+     while the height attribute held. */
+  .yt-lazy img,
+  .yt-lazy iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    object-fit: cover;
+    display: block;
+  }
+
+  .yt-lazy-play {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .yt-lazy-play:focus-visible {
+    outline: 3px solid var(--highlight);
+    outline-offset: 2px;
+  }
+
+  .yt-lazy-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: background-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .yt-lazy-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 54%;
+    transform: translate(-50%, -50%);
+    border-style: solid;
+    border-width: 12px 0 12px 19px;
+    border-color: transparent transparent transparent white;
+  }
+
+  .yt-lazy-play:hover .yt-lazy-icon,
+  .yt-lazy-play:focus-visible .yt-lazy-icon {
+    background-color: var(--highlight);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .piece-pdf,
+    .yt-lazy-icon {
+      transition: none;
+    }
+  }
+
+  /* Content column is max 700px wide; below this the two-column card gets too cramped. */
+  @media only screen and (max-width: 620px) {
+    .piece {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+</style>

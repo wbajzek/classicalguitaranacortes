@@ -1,0 +1,41 @@
+{{- /* One composition card: recording (optional) alongside title, notes, and the score PDF.
+
+       {{< piece title="Prelude #1" year="2022" pdf="/scores/prelude-1.pdf" video="gsgMPYHK918" >}}
+       inspired by the work of Agustín Barrios Mangoré and J.S. Bach
+       {{< /piece >}}
+
+       video= is the 11-char YouTube id; omit it and the card renders text-only.
+       performer= credits whoever is playing, when it is not William. */ -}}
+{{- $title := .Get "title" -}}
+{{- $year := .Get "year" -}}
+{{- $composer := .Get "composer" -}}
+{{- $pdf := .Get "pdf" -}}
+{{- $video := .Get "video" -}}
+{{- $performer := .Get "performer" -}}
+{{- if not $title -}}
+  {{- errorf "piece: missing 'title' parameter in %s" .Position -}}
+{{- end -}}
+{{- if not $pdf -}}
+  {{- errorf "piece: missing 'pdf' parameter for %q in %s" $title .Position -}}
+{{- end -}}
+{{- $heading := $title -}}
+{{- with $composer -}}
+  {{- $heading = printf "%s — %s" $heading . -}}
+{{- end -}}
+<article class="piece{{ if not $video }} piece--no-video{{ end }}">
+  {{- with $video }}
+  <div class="piece-media">
+    {{- partial "yt-lazy.html" (dict "id" . "title" $title) -}}
+    {{- with $performer }}<p class="piece-credit">Performed by {{ . }}</p>{{ end -}}
+  </div>
+  {{- end }}
+  <div class="piece-body">
+    <h5 class="piece-title">{{ $heading }}{{ with $year }} <span class="piece-year">({{ . }})</span>{{ end }}</h5>
+    <div class="piece-desc">{{ .Inner | markdownify }}</div>
+    <p class="piece-actions">
+      <a class="piece-pdf" href="{{ $pdf | relURL }}">
+        <i class="fas fa-file-pdf" aria-hidden="true"></i> Download score (PDF)
+      </a>
+    </p>
+  </div>
+</article>

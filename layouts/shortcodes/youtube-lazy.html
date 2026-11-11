@@ -1,0 +1,6 @@
+{{- /* {{< youtube-lazy id="VIDEOID" title="Optional title" >}} */ -}}
+{{- $id := .Get "id" | default (.Get 0) -}}
+{{- if not $id -}}
+  {{- errorf "youtube-lazy: missing 'id' parameter in %s" .Position -}}
+{{- end -}}
+{{- partial "yt-lazy.html" (dict "id" $id "title" (.Get "title")) -}}
