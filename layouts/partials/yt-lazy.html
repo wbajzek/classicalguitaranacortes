@@ -17,7 +17,7 @@
   {{- $w = $img.Width -}}
   {{- $h = $img.Height -}}
 {{- else -}}
-  {{- warnf "yt-lazy: no local thumbnail at assets/images/videos/%s.jpg — hot-linking i.ytimg.com instead" $id -}}
+  {{- warnf "yt-lazy: no local thumbnail at assets/images/videos/%s.jpg – hot-linking i.ytimg.com instead" $id -}}
   {{- $poster = printf "https://i.ytimg.com/vi/%s/hqdefault.jpg" $id -}}
   {{- $w = 480 -}}
   {{- $h = 360 -}}

@@ -20,7 +20,7 @@
 {{- end -}}
 {{- $heading := $title -}}
 {{- with $composer -}}
-  {{- $heading = printf "%s — %s" $heading . -}}
+  {{- $heading = printf "%s – %s" $heading . -}}
 {{- end -}}
 <article class="piece{{ if not $video }} piece--no-video{{ end }}">
   {{- with $video }}
