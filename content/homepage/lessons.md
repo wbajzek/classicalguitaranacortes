@@ -9,7 +9,7 @@ I offer private classical guitar lessons for adult students of all levels, from 
 - Fundamentals of classical guitar technique
 - Musicality
 - Tone production with or without nails
-- Ergonomics — how to play comfortably and troubleshoot physical issues
+- Ergonomics – how to play comfortably and troubleshoot physical issues
 - Music reading
 - Theory, composition, and arrangement
 - How to practice effectively
