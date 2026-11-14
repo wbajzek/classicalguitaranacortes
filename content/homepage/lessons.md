@@ -18,4 +18,4 @@ I offer private classical guitar lessons for adult students of all levels, from 
 - Music notation using MuseScore or Dorico
 - Nail care
 
-[Email me](mailto:williambajzek+website@gmail.com) to schedule a lesson or ask any questions.
+[Email me](mailto:williambajzek+guitar@gmail.com) to schedule a lesson or ask any questions.
